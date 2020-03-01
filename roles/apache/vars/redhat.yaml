@@ -1,0 +1,7 @@
+--- #roles/apache/vars/redhat.yaml
+apache_server_root: /etc/httpd
+apache_service_name: httpd
+apache_packages:
+	- httpd
+	- httpd-devel
+	- mod_ssl #Debian liefert das SSL Modul bereits in `apache2` mit aus

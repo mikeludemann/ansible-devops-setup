@@ -1,0 +1,6 @@
+#/roles/apache/handlers/main.yaml
+---
+- name: restart apache
+	service:
+		name: "{{ apache_service_name }}"
+		state: restarted

@@ -1,0 +1,51 @@
+# roles/nginx/tasks/main.yaml
+---
+- hosts: webservers
+	tasks:
+		- name: Open port 80 for http access
+			become: true
+			firewalld:
+				service: http
+				permanent: true
+				state: enabled
+			register: firewall_setting
+
+		- name: Restart the firewalld service to load in the firewall changes
+			become: true
+			service:
+				name: firewalld
+				state: restarted
+			when: firewall_setting.changed
+
+		- name: Install packages for nginx
+			become: true
+			package:
+				name: "nginx-{{ nginx_version }}"
+				state: present
+
+		- name: Copy Stylsheet in place
+			become: true
+			copy:
+				src: stylsheet.css
+				dest: "{{ nginx_root }}/stylesheet.css"
+			register: stylesheet
+
+		- name: Create default page
+			become: true
+			template:
+				src: index.html.j2
+				dest: "{{ nginx_root }}/index.html"
+			register: indexfile
+
+		- name: Restart nginx service
+			become: true
+			service:
+				name: nginx
+				state: restarted
+			when: indexfile.changed or stylesheet.changed
+
+		- name: Setup motd
+			become: true
+			template:
+				src: motd.j2
+				dest: /etc/motd

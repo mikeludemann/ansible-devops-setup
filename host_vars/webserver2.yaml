@@ -1,0 +1,3 @@
+# host_vars/webserver2.yaml
+---
+webserver_name: "Webserver 2"

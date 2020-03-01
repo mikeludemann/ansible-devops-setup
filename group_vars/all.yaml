@@ -1,0 +1,4 @@
+#group_vars/all.yaml
+---
+nginx_version: 1.12.2
+nginx_root: "/usr/share/nginx/html"

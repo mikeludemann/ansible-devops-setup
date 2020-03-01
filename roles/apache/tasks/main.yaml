@@ -1,0 +1,17 @@
+---
+- name: Include OS-specific parameters
+  include_vars: {{ ansible_os_family }}.yaml
+
+- name: Install apache packages
+  package:
+    name: "{{ apache_packages }}"
+    state: present
+  notify: restart apache
+
+- name: Activate mod_ssl if Debian
+  file:
+    src: "{{ apache_server_root }}/mods-available/mod_ssl"
+    dest: "{{ apache_server_root }}/mods-enabled/mod_ssl"
+    state: link
+  notify: restart apache
+  when: ansible_os_family == 'Debian'"

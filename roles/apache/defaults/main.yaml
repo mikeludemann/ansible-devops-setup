@@ -1,0 +1,5 @@
+--- roles/apache/defaults/main.yaml
+apache_root: "/var/www/html"
+apache_version: 2.4.29
+apache_listen_port: 80
+apache_listen_ssl_port: 443

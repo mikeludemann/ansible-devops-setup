@@ -1,0 +1,23 @@
+# inventory.yaml
+---
+all:
+	hosts:
+		webserver1:
+			ansible_host: 192.168.0.2
+			webserver_name: "Webserver 1"
+		webserver2:
+			ansible_host: 192.168.0.3
+			webserver_name: "Webserver 2"
+		webserver3:
+			ansible_host: 192.168.0.4
+			webserver_name: "Webserver 3"
+		dbserver1:
+			ansible_host: 192.168.1.1
+	children:
+		webservers:
+			hosts:
+				webserver1:
+				webserver2:
+				webserver3:
+		dbservers:
+			dbserver1:
